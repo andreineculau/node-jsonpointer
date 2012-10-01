@@ -1,29 +1,35 @@
 # JSON Pointer for nodejs
 
-This is an implementation of [JSON Pointer](http://tools.ietf.org/html/draft-pbryan-zyp-json-pointer-00).
+This is an implementation of [JSON Pointer](http://tools.ietf.org/html/draft-ietf-appsawg-json-pointer-04).
+
 
 ## Usage
 
-    var jsonpointer = require("jsonpointer");
-    var obj = { foo: 1, bar: { baz: 2}, qux: [3, 4, 5]};
-    var one = jsonpointer.get(obj, "/foo");
-    var two = jsonpointer.get(obj, "/bar/baz");
-    var three = jsonpointer.get(obj, "/qux/0");
-    var four = jsonpointer.get(obj, "/qux/1");
-    var five = jsonpointer.get(obj, "/qux/2");
+```js
+var jsonpointer = require('jsonpointer'),
+    instance = {
+        foo: 1,
+        bar: {
+            baz: 2
+        },
+        qux: [3, 4, 5]
+    };
 
-    jsonpointer.set(obj, "/foo", 6); // obj.foo = 6;
+jsonpointer.get(instance, '/foo');
+jsonpointer.get(instance, '/bar/baz');
+jsonpointer.get(instance, '/qux/0');
 
-## Testing
+jsonpointer.set(instance, '/qux/0', 6);
+jsonpointer.del(instance, '/qux/2');
+```
 
-    $ node test.js
-    All tests pass.
-    $
 
 ## Author
 
 (c) 2011 Jan Lehnardt <jan@apache.org>
+(c) 2012 Andrei Neculau <@andreineculau>
+
 
 ## License
 
-MIT License.
+[MIT](http://opensource.org/licenses/MIT)

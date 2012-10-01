@@ -1,57 +1,87 @@
-var console = require("console");
+/*jshint node:true, nonstandard:true*/
+var traverse = function(obj, pointer, callbackSet, callbackInnerSet) {
+    'use strict';
+    var part;
 
-var traverse = function(obj, pointer, value) {
-  // assert(isArray(pointer))
-  var part = unescape(pointer.shift());
-  if(typeof obj[part] === "undefined") {
-    throw("Value for pointer '" + pointer + "' not found.");
-    return;
-  }
-  if(pointer.length != 0) { // keep traversin!
-    return traverse(obj[part], pointer, value);
-  }
-  // we're done
-  if(typeof value === "undefined") {
-    // just reading
+    // assert(isArray(pointer))
+    part = unescape(pointer.shift());
+
+    if (typeof obj[part] === 'undefined') {
+        if (typeof callbackInnerSet !== 'undefined') {
+            callbackInnerSet(obj, part);
+        }
+        if (typeof obj[part] === 'undefined') {
+            throw 'Value for pointer ' + pointer + ' not found.';
+        }
+    }
+
+    if (pointer.length !== 0) { // keep traversin!
+        return traverse(obj[part], pointer, callbackSet, callbackInnerSet);
+    }
+
+    if (typeof callbackSet !== 'undefined') {
+        callbackSet(obj, part);
+    }
     return obj[part];
-  }
-  // set new value, return old value
-  var old_value = obj[part];
-  if(value === null) {
-    delete obj[part];
-  } else {
-    obj[part] = value;
-  }
-  return old_value;
-}
+};
 
-var validate_input = function(obj, pointer) {
-  if(typeof obj !== "object") {
-    throw("Invalid input object.");
-  }
+var validateInput = function(obj, pointer) {
+    'use strict';
 
-  if(!pointer) {
-    throw("Invalid JSON pointer.");
-  }
-}
+    if (typeof obj !== 'object') {
+        throw 'Invalid input - object or array needed.';
+    }
 
-var get = function(obj, pointer) {
-  validate_input(obj, pointer);
-  if (pointer === "/") {
-    return obj;
-  }
-  pointer = pointer.split("/").slice(1);
-  return traverse(obj, pointer);
-}
+    if (!pointer) {
+        throw 'Invalid JSON pointer.';
+    }
+};
 
-var set = function(obj, pointer, value) {
-  validate_input(obj, pointer);
-  if (pointer === "/") {
-    return obj;
-  }
-  pointer = pointer.split("/").slice(1);
-  return traverse(obj, pointer, value);
-}
+exports.get = function(obj, pointer) {
+    'use strict';
 
-exports.get = get
-exports.set = set
+    validateInput(obj, pointer);
+    pointer = pointer.split('/').slice(1);
+    return traverse(obj, pointer);
+};
+
+exports.silentGet = function(obj, pointer) {
+    'use strict';
+
+    try {
+        return exports.get(obj, pointer);
+    } catch(e) {
+        return undefined;
+    }
+};
+
+exports.set = function(obj, pointer, value) {
+    'use strict';
+
+    validateInput(obj, pointer);
+    pointer = pointer.split('/').slice(1);
+    return traverse(obj, pointer, function(obj, part) {
+        obj[part] = value;
+    });
+};
+
+exports.setCallback = function(obj, pointer, callbackSet, callbackInnerSet) {
+    'use strict';
+
+    validateInput(obj, pointer);
+    pointer = pointer.split('/').slice(1);
+
+    return traverse(obj, pointer, callbackSet, callbackInnerSet);
+};
+
+exports.del = function(obj, pointer) {
+    'use strict';
+
+    return exports.setCallback(obj, pointer, function(obj, part) {
+        if (obj instanceof Array) {
+            obj.splice(part, 1);
+        } else {
+            delete obj[part];
+        }
+    });
+};

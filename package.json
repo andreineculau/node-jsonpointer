@@ -1,15 +1,25 @@
-{ "name" : "jsonpointer"
-, "description" : "Simple JSON Addressing."
-, "tags" : ["util", "simple", "util", "utility"]
-, "version" : "1.0.1"
-, "author" : "Jan Lehnardt <jan@apache.org>"
-, "repository" :
-  { "type" : "git"
-  , "url" : "http://github.com/janl/node-jsonpointer.git"
-  }
-, "bugs" :
-  { "url" : "http://github.com/janl/node-jsonpointer/issues" }
-, "engines" : ["node >= 0.4.9"]
-, "main" : "./jsonpointer"
-, "scripts" : { "test" : "node test.js" }
+{
+    "name": "jsonpointer",
+    "version": "2.0.0",
+    "author": "Jan Lehnardt <jan@apache.org>",
+    "description": "Simple JSON Addressing.",
+    "contributors": [
+        "Andrei Neculau <@andreineculau>"
+    ],
+    "tags": [
+        "util",
+        "json",
+        "diff"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/andreineculau/node-jsonpointer.git"
+    },
+    "engines": {
+        "node": "~0.8.5"
+    },
+    "scripts": {
+        "test": "node test.js"
+    },
+    "main": "./jsonpointer"
 }
