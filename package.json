@@ -1,25 +1,29 @@
 {
     "name": "jsonpointer",
-    "version": "2.0.0",
-    "author": "Jan Lehnardt <jan@apache.org>",
-    "description": "Simple JSON Addressing.",
-    "contributors": [
-        "Andrei Neculau <@andreineculau>"
-    ],
-    "tags": [
-        "util",
-        "json",
-        "diff"
-    ],
+    "version": "2012.11.14",
+    "description": "Simple JSON referencing.",
+    "author": "Andrei Neculau <@andreineculau>",
+    "contributors": [],
     "repository": {
         "type": "git",
         "url": "git://github.com/andreineculau/node-jsonpointer.git"
     },
+    "keywords": [
+        "util",
+        "json",
+        "pointer"
+    ],
+    "license": "MIT",
     "engines": {
-        "node": "~0.8.5"
+        "node": "~0.8.12"
     },
-    "scripts": {
-        "test": "node test.js"
+    "dependencies": {
+        "coffee-script": "~1.4.0",
+        "amdefine": "~0.0.4"
     },
-    "main": "./jsonpointer"
+    "devDependencies": {},
+    "bundleDependencies": {},
+    "script": {},
+    "bin": {},
+    "main": "index.coffee"
 }
