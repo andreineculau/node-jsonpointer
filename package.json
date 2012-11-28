@@ -22,7 +22,7 @@
         "amdefine": "~0.0.4"
     },
     "devDependencies": {},
-    "bundleDependencies": {},
+    "bundleDependencies": [],
     "script": {},
     "bin": {},
     "main": "index.coffee"
