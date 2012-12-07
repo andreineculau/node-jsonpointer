@@ -81,8 +81,10 @@ define () ->
   exports.remove = (obj, pointer) ->
     try
       exports.setCallback obj, pointer, (obj, [type, key]) ->
-        obj.splice key, 1  if obj instanceof Array
-        delete obj[key]
+        if obj instanceof Array
+          obj.splice key, 1
+        else
+          delete obj[key]
     catch e
 
   exports
