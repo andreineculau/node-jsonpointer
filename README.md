@@ -1,31 +1,20 @@
-# JSON Pointer for nodejs
+# JSON getter and setter
 
-This is an implementation of [JSON Pointer](http://tools.ietf.org/html/draft-ietf-appsawg-json-pointer-08).
+This is an implementation of [JSON Pointer](http://tools.ietf.org/html/rfc6901).
 
 ## Usage
 
-    var jsonpointer = require("jsonpointer");
-    var obj = { foo: 1, bar: { baz: 2}, qux: [3, 4, 5]};
-    var one = jsonpointer.get(obj, "/foo");
-    var two = jsonpointer.get(obj, "/bar/baz");
-    var three = jsonpointer.get(obj, "/qux/0");
-    var four = jsonpointer.get(obj, "/qux/1");
-    var five = jsonpointer.get(obj, "/qux/2");
-    var notfound = jsonpointer.get(obj, "/quo"); // returns null
+```coffee
+jsongetset = require "jsongetset"
+obj = { foo: 1, bar: { baz: 2}, qux: [3, 4, 5]}
+one = jsongetset.get obj, "/foo"
+two = jsongetset.get obj, "/bar/baz"
+three = jsongetset.get obj, "/qux/0"
+four = jsongetset.get obj, "/qux/1"
+five = jsongetset.get obj, "/qux/2"
+notfound = jsongetset.get obj, "/quo" # returns null
 
-    jsonpointer.set(obj, "/foo", 6); // obj.foo = 6;
-
-## Testing
-
-    $ node test.js
-    All tests pass.
-    $
-
-[![Build Status](https://travis-ci.org/janl/node-jsonpointer.png?branch=master)](undefined)
-
-## Author
-
-(c) 2011 Jan Lehnardt <jan@apache.org>
+jsongetset.set obj, "/foo", 6 # obj.foo = 6
 
 ## License
 

@@ -1,6 +1,6 @@
 var assert = require("assert");
 var console = require("console");
-var jsonpointer = require("./jsonpointer");
+var jsonpointer = require("./index");
 
 var obj = {
   a: 1,
