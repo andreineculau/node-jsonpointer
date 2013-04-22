@@ -25,16 +25,16 @@ var traverse = function(obj, pointer, value) {
     return obj[part];
   }
   // set new value, return old value
-  var old_value = obj[part];
+  var oldValue = obj[part];
   if(value === null) {
     delete obj[part];
   } else {
     obj[part] = value;
   }
-  return old_value;
+  return oldValue;
 };
 
-var validate_input = function(obj, pointer) {
+var validateInput = function(obj, pointer) {
   if(typeof obj !== "object") {
     throw new Error("Invalid input object.");
   }
@@ -57,7 +57,7 @@ var validate_input = function(obj, pointer) {
 };
 
 var get = function(obj, pointer) {
-  pointer = validate_input(obj, pointer);
+  pointer = validateInput(obj, pointer);
   if (pointer.length === 0) {
     return obj;
   }
@@ -65,7 +65,7 @@ var get = function(obj, pointer) {
 };
 
 var set = function(obj, pointer, value) {
-  pointer = validate_input(obj, pointer);
+  pointer = validateInput(obj, pointer);
   if (pointer.length === 0) {
     throw new Error("Invalid JSON pointer for set.");
   }
